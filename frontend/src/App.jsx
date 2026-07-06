@@ -8,9 +8,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Workspace from './pages/Workspace';
-import Documents from './pages/Documents';
-import Agents from './pages/Agents';
-import Analytics from './pages/Analytics';
+import Upload from './pages/Upload';
+import Research from './pages/Research';
 import Comparison from './pages/Comparison';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
@@ -33,9 +32,8 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/workspace" element={<Workspace />} />
-        <Route path="/documents" element={<Documents />} />
-        <Route path="/agents" element={<Agents />} />
-        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/research" element={<Research />} />
         <Route path="/comparison" element={<Comparison />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />

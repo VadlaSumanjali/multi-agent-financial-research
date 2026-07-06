@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Settings as SettingsIcon, Sliders, Database, Key, Shield, HelpCircle, Sun, Moon } from 'lucide-react';
+import { Sliders, Database, Key, Shield, Sun, Moon } from 'lucide-react';
 import Button from '../components/Common/Button';
 
 export const Settings = () => {
@@ -31,21 +31,21 @@ export const Settings = () => {
         {/* Left/Center: Configurations (2 Columns) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Section 1: LLM Engine */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 space-y-4">
+          <div className="enterprise-card p-5 space-y-4">
             <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2">
-              <Sliders size={16} className="text-brand-blue" />
+              <Sliders size={16} className="text-primary" />
               LLM Model Orchestrator
             </h3>
             
             <div className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider font-manrope">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-manrope">
                   Default Core Model
                 </label>
                 <select
                   value={modelType}
                   onChange={(e) => setModelType(e.target.value)}
-                  className="w-full h-10 px-3 bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-brand-blue cursor-pointer"
+                  className="w-full h-10 px-3 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-primary cursor-pointer"
                 >
                   <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile (Default - Groq)</option>
                   <option value="claude-3-5-sonnet">Anthropic Claude 3.5 Sonnet</option>
@@ -55,7 +55,7 @@ export const Settings = () => {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider font-manrope">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-manrope">
                   API Key Credentials
                 </label>
                 <div className="relative">
@@ -63,7 +63,7 @@ export const Settings = () => {
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
-                    className="w-full h-10 pl-3 pr-10 bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-brand-blue"
+                    className="w-full h-10 pl-3 pr-10 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-primary"
                   />
                   <Key className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 h-4 w-4" />
                 </div>
@@ -75,34 +75,34 @@ export const Settings = () => {
           </div>
 
           {/* Section 2: Backend coordinates */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 space-y-4">
+          <div className="enterprise-card p-5 space-y-4">
             <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2">
-              <Database size={16} className="text-emerald-500" />
+              <Database size={16} className="text-success" />
               FastAPI Integration Parameters
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider font-manrope">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-manrope">
                   FastAPI Server Endpoint
                 </label>
                 <input
                   type="text"
                   value={backendUrl}
                   onChange={(e) => setBackendUrl(e.target.value)}
-                  className="w-full h-10 px-3 bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-brand-blue"
+                  className="w-full h-10 px-3 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-primary"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider font-manrope">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-manrope">
                   Parser Chunk Size (tokens)
                 </label>
                 <input
                   type="number"
                   value={chunkSize}
                   onChange={(e) => setChunkSize(e.target.value)}
-                  className="w-full h-10 px-3 bg-slate-50 border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-brand-blue"
+                  className="w-full h-10 px-3 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-primary"
                 />
               </div>
             </div>
@@ -112,13 +112,13 @@ export const Settings = () => {
         {/* Right: Theme & Status (1 Column) */}
         <div className="lg:col-span-1 space-y-6">
           {/* Theme card */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 space-y-4">
-            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white">
+          <div className="enterprise-card p-5 space-y-4">
+            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">
               Visual Options
             </h3>
-            <div className="flex items-center justify-between p-3.5 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl">
-              <div className="flex items-center gap-2 text-xs font-semibold">
-                {theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
+            <div className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl">
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200">
+                {theme === 'dark' ? <Moon size={15} /> : <Sun size={15} />}
                 {theme === 'dark' ? 'Dark theme' : 'Light theme'}
               </div>
               <Button onClick={toggleTheme} size="xs" variant="outline">
@@ -128,23 +128,23 @@ export const Settings = () => {
           </div>
 
           {/* System Check Card */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 space-y-4">
-            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2">
-              <Shield size={16} className="text-emerald-500" />
+          <div className="enterprise-card p-5 space-y-4">
+            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+              <Shield size={16} className="text-success" />
               Environment Assessment
             </h3>
             <div className="space-y-2.5 text-xs text-slate-500 dark:text-slate-400">
               <div className="flex justify-between">
                 <span>FastAPI connection</span>
-                <span className="font-bold text-amber-500">Offline (using mock)</span>
+                <span className="font-bold text-warning">Offline (using mock)</span>
               </div>
               <div className="flex justify-between">
                 <span>Groq client status</span>
-                <span className="font-bold text-emerald-500">Connected</span>
+                <span className="font-bold text-success">Connected</span>
               </div>
               <div className="flex justify-between">
                 <span>Local indexing corpus</span>
-                <span className="font-bold text-slate-700 dark:text-slate-300">6 documents active</span>
+                <span className="font-bold text-slate-700 dark:text-slate-350">6 documents active</span>
               </div>
             </div>
             

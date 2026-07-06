@@ -65,152 +65,10 @@ const initialAgents = [
   }
 ];
 
-const initialSessions = [
-  {
-    id: 'sess-1',
-    title: 'Apple Inc. (AAPL) Q3 2026 Margin Analysis',
-    company: 'Apple Inc.',
-    ticker: 'AAPL',
-    date: '2026-07-05',
-    status: 'completed',
-    progress: 100,
-    metadata: {
-      sector: 'Technology',
-      marketCap: '$3.45T',
-      peRatio: '28.4',
-      revenue: '$94.8B (Q3)',
-      grossMargin: '46.2%',
-      netDebt: '-$55B (Net Cash)'
-    },
-    documents: [
-      { id: 'doc-1', name: 'AAPL-10Q-Q3-2026.pdf', size: '2.8 MB', status: 'indexed', uploadedAt: '2026-07-05 10:14' },
-      { id: 'doc-2', name: 'AAPL-Earnings-Call-Transcript-Q3-26.txt', size: '420 KB', status: 'indexed', uploadedAt: '2026-07-05 10:20' }
-    ],
-    timeline: [
-      { name: 'Document Ingestion', status: 'completed', time: '10:14 AM', details: 'Parsed AAPL-10Q-Q3-2026.pdf. Generated 1,200 chunks.' },
-      { name: 'Data Extraction', status: 'completed', time: '10:15 AM', details: 'Extracted income statement and cash flows. Identified 46.2% gross margin.' },
-      { name: 'Risk Assessment', status: 'completed', time: '10:17 AM', details: 'Analyzed litigation updates and tax contingencies. No significant deviations.' },
-      { name: 'Synthesis & Summary', status: 'completed', time: '10:18 AM', details: 'Research Agent cross-referenced Q2 performance. Ready for review.' }
-    ],
-    messages: [
-      {
-        id: 'msg-1',
-        role: 'user',
-        content: 'Give me a brief summary of Apple\'s Q3 2026 gross margin trends and highlight any red flags.'
-      },
-      {
-        id: 'msg-2',
-        role: 'assistant',
-        agent: 'Report Agent',
-        content: `### Executive Summary: Apple Inc. Q3 2026 Gross Margin
+const initialSessions = [];
 
-Based on the parsed **Q3 2026 10-Q filing**, Apple reported a consolidated **Gross Margin of 46.2%**, which is at the upper end of company guidance. This performance is primarily driven by:
+const globalDocumentsList = [];
 
-1. **Services Mix**: Services gross margin reached **74.1%**, contributing to overall margin expansion. Services now represent 27.3% of total revenues.
-2. **Component Deflation**: Reduced input prices for memory and display panels offset elevated assembly rates in secondary sites.
-
-#### Key Red Flags Identified:
-- **Foreign Exchange Headwinds**: FX fluctuations adversely impacted international gross margins by **110 bps** year-over-year.
-- **Inventory Commitments**: Purchase commitments for next-generation silicon increased by **18% YoY**, creating potential inventory obsolescence risks if consumer demand softens in the European sector.`
-      }
-    ],
-    notes: `### Analysts Notes - Apple Q3 2026
-- Services revenue remains the primary margin engine.
-- Silcon commitments indicate high volume requirements for late 2026 releases.
-- Risk area: FX volatility remains persistent. Need to check hedging ratios in next session.`,
-    summary: 'Apple posted robust Q3 2026 margins of 46.2%, buoyed by a record 74.1% Services margin. Concerns revolve around rising capital commitments and FX pressures.'
-  },
-  {
-    id: 'sess-2',
-    title: 'Tesla Inc. (TSLA) Q1 2026 Footnotes Audit',
-    company: 'Tesla Inc.',
-    ticker: 'TSLA',
-    date: '2026-07-04',
-    status: 'completed',
-    progress: 100,
-    metadata: {
-      sector: 'Automotive / Energy',
-      marketCap: '$720B',
-      peRatio: '68.1',
-      revenue: '$21.3B (Q1)',
-      grossMargin: '17.4%',
-      netDebt: '-$14.2B (Net Cash)'
-    },
-    documents: [
-      { id: 'doc-3', name: 'TSLA-10Q-Q1-2026.pdf', size: '3.4 MB', status: 'indexed', uploadedAt: '2026-07-04 14:02' }
-    ],
-    timeline: [
-      { name: 'Document Ingestion', status: 'completed', time: '14:02 PM', details: 'Parsed TSLA-10Q-Q1-2026.pdf.' },
-      { name: 'Footnotes Analysis', status: 'completed', time: '14:05 PM', details: 'Scanned warranty reserve and regulatory credit revenues.' }
-    ],
-    messages: [
-      {
-        id: 'msg-1',
-        role: 'user',
-        content: 'Check the regulatory credits contribution and warranty reserves.'
-      },
-      {
-        id: 'msg-2',
-        role: 'assistant',
-        agent: 'Red Flag Agent',
-        content: `### Tesla Q1 2026 Footnotes Analysis:
-
-1. **Regulatory Credits**: Tesla recognized **$480M** of regulatory credit revenue this quarter (up 12% YoY). Excluding credit sales, automotive gross margin drops to **15.2%** (down from the reported 17.4%). This represents a high dependence on credits for profitability.
-2. **Warranty Reserves**: Warranty reserves per vehicle delivered decreased by **4%**. If actual warranty claim rates follow historic averages, this adjustment could artificially boost operating income by approximately **$35M**.`
-      }
-    ],
-    notes: 'Credit reliance remains high. Warranty reserve changes need further investigation as they may be boosting operating income artificially.',
-    summary: 'Warranty reserves are down 4% and regulatory credits contributed $480M (representing 2.2% of margins), showing potential earnings quality concerns.'
-  },
-  {
-    id: 'sess-3',
-    title: 'NVIDIA (NVDA) Blackwell Chip Forecast',
-    company: 'NVIDIA Corp.',
-    ticker: 'NVDA',
-    date: '2026-06-25',
-    status: 'failed',
-    progress: 15,
-    metadata: {
-      sector: 'Semiconductors',
-      marketCap: '$3.10T',
-      peRatio: '52.3',
-      revenue: '$26.0B (Q1)',
-      grossMargin: '78.1%',
-      netDebt: '-$22B'
-    },
-    documents: [
-      { id: 'doc-4', name: 'NVDA-Blackwell-SupplyChain-Brief.pdf', size: '1.2 MB', status: 'failed', uploadedAt: '2026-06-25 09:30' }
-    ],
-    timeline: [
-      { name: 'File Fetch', status: 'completed', time: '09:30 AM', details: 'Retrieved supply chain brief.' },
-      { name: 'Security Check', status: 'failed', time: '09:31 AM', details: 'Decryption failed. Document is password protected or corrupted.' }
-    ],
-    messages: [
-      {
-        id: 'msg-1',
-        role: 'user',
-        content: 'Extract the Blackwell shipment estimates.'
-      },
-      {
-        id: 'msg-2',
-        role: 'assistant',
-        agent: 'Document Agent',
-        content: 'Analysis failed. The uploaded document is encrypted and cannot be parsed. Please re-upload an unencrypted PDF.'
-      }
-    ],
-    notes: 'Filing was corrupted or encrypted. Re-upload needed.',
-    summary: 'Session failed due to PDF decryption error during ingestion.'
-  }
-];
-
-const globalDocumentsList = [
-  { id: 'doc-1', name: 'AAPL-10Q-Q3-2026.pdf', company: 'Apple Inc.', size: '2.8 MB', status: 'indexed', uploadedAt: '2026-07-05 10:14' },
-  { id: 'doc-2', name: 'AAPL-Earnings-Call-Transcript-Q3-26.txt', company: 'Apple Inc.', size: '420 KB', status: 'indexed', uploadedAt: '2026-07-05 10:20' },
-  { id: 'doc-3', name: 'TSLA-10Q-Q1-2026.pdf', company: 'Tesla Inc.', size: '3.4 MB', status: 'indexed', uploadedAt: '2026-07-04 14:02' },
-  { id: 'doc-4', name: 'NVDA-Blackwell-SupplyChain-Brief.pdf', company: 'NVIDIA Corp.', size: '1.2 MB', status: 'failed', uploadedAt: '2026-06-25 09:30' },
-  { id: 'doc-5', name: 'MSFT-10K-FY2025.pdf', company: 'Microsoft Corp.', size: '8.4 MB', status: 'indexed', uploadedAt: '2026-06-20 11:15' },
-  { id: 'doc-6', name: 'AMZN-Q2-2026-Report.pdf', company: 'Amazon.com Inc.', size: '4.1 MB', status: 'indexing', uploadedAt: '2026-07-05 16:50' }
-];
 
 export const AppProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
@@ -219,8 +77,10 @@ export const AppProvider = ({ children }) => {
   });
   
   const [sessions, setSessions] = useState(initialSessions);
-  const [activeSessionId, setActiveSessionId] = useState('sess-1');
+  const [activeSessionId, setActiveSessionId] = useState('');
   const [documents, setDocuments] = useState(globalDocumentsList);
+  const [reports, setReports] = useState([]);
+
   const [agents, setAgents] = useState(initialAgents);
   const [notifications, setNotifications] = useState([]);
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
@@ -609,8 +469,11 @@ Would you like the **Report Agent** to compile these details into a formal markd
         isAuthenticated,
         setIsAuthenticated,
         loginUser,
-        logoutUser
+        logoutUser,
+        reports,
+        setReports
       }}
+
     >
       {children}
     </AppContext.Provider>

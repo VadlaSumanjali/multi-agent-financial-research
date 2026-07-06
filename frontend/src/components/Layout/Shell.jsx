@@ -1,25 +1,20 @@
 import React from 'react';
 import Navbar from './Navbar';
-import Sidebar from './Sidebar';
 import { useApp } from '../../context/AppContext';
-import { Sparkles, X, CheckCircle, Info, AlertTriangle } from 'lucide-react';
+import { X, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Shell = ({ children }) => {
   const { notifications, clearNotification } = useApp();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-300 antialiased">
-      {/* Top Navbar */}
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans antialiased">
+      {/* Sticky Top Navbar */}
       <Navbar />
 
-      {/* Main Body */}
-      <div className="flex flex-1 relative">
-        {/* Left Sidebar */}
-        <Sidebar />
-
-        {/* Center content outlet */}
-        <main className="flex-1 p-6 lg:p-8 overflow-y-auto max-h-[calc(100vh-4rem)] bg-slate-50/50 dark:bg-slate-950/20">
+      {/* Main Container */}
+      <div className="flex flex-1 flex-col">
+        <main className="flex-1 p-6 lg:p-8 overflow-y-auto bg-slate-50 dark:bg-slate-950">
           <div className="max-w-7xl mx-auto space-y-6">
             {children}
           </div>
@@ -32,15 +27,15 @@ export const Shell = ({ children }) => {
           {notifications.map((notif) => (
             <motion.div
               key={notif.id}
-              initial={{ opacity: 0, y: 15, scale: 0.95 }}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
-              className="glass-panel-dense p-4 rounded-xl border border-slate-200/80 dark:border-slate-800/80 shadow-xl flex gap-3 items-start"
+              exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.15 } }}
+              className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg flex gap-3 items-start"
             >
               {/* Type Icon */}
               <div className="shrink-0 mt-0.5">
-                {notif.type === 'success' && <CheckCircle className="text-emerald-500 h-4.5 w-4.5" />}
-                {notif.type === 'info' && <Info className="text-brand-blue h-4.5 w-4.5" />}
+                {notif.type === 'success' && <CheckCircle className="text-emerald-600 h-4.5 w-4.5" />}
+                {notif.type === 'info' && <Info className="text-primary h-4.5 w-4.5" />}
                 {notif.type === 'warning' && <AlertTriangle className="text-amber-500 h-4.5 w-4.5" />}
               </div>
 
@@ -49,7 +44,7 @@ export const Shell = ({ children }) => {
                 <p className="font-semibold text-slate-900 dark:text-white leading-normal">
                   {notif.text}
                 </p>
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 block">
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 block font-manrope">
                   {notif.time}
                 </span>
               </div>
