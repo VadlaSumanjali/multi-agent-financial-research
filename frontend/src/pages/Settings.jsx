@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Sliders, Database, Key, Shield, Sun, Moon } from 'lucide-react';
+import { Sliders, Database, Key, Shield } from 'lucide-react';
 import Button from '../components/Common/Button';
 
 export const Settings = () => {
-  const { theme, toggleTheme, addNotification } = useApp();
+  const { addNotification } = useApp();
   const [modelType, setModelType] = useState('llama-3.3-70b-versatile');
   const [apiKey, setApiKey] = useState('');
   const [backendUrl, setBackendUrl] = useState('http://127.0.0.1:8000');
@@ -16,13 +16,13 @@ export const Settings = () => {
   };
 
   return (
-    <div className="space-y-6 page-transition-wrapper">
+    <div className="space-y-6 page-transition-wrapper p-6 max-w-7xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold font-jakarta text-slate-900 dark:text-white tracking-tight">
+        <h1 className="text-2xl font-bold font-jakarta text-slate-900 tracking-tight">
           Control Center
         </h1>
-        <p className="text-xs text-slate-500 dark:text-slate-400">
+        <p className="text-xs text-slate-500 mt-1">
           Modify backend coordinates, indexing boundaries, and active multi-agent orchestrator configurations.
         </p>
       </div>
@@ -32,8 +32,8 @@ export const Settings = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Section 1: LLM Engine */}
           <div className="enterprise-card p-5 space-y-4">
-            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2">
-              <Sliders size={16} className="text-primary" />
+            <h3 className="font-semibold text-sm font-jakarta text-slate-900 flex items-center gap-2">
+              <Sliders size={16} className="text-blue-600" />
               LLM Model Orchestrator
             </h3>
             
@@ -45,7 +45,7 @@ export const Settings = () => {
                 <select
                   value={modelType}
                   onChange={(e) => setModelType(e.target.value)}
-                  className="w-full h-10 px-3 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-primary cursor-pointer"
+                  className="w-full h-10 px-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-blue-600 cursor-pointer"
                 >
                   <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile (Default - Groq)</option>
                   <option value="claude-3-5-sonnet">Anthropic Claude 3.5 Sonnet</option>
@@ -63,7 +63,7 @@ export const Settings = () => {
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
-                    className="w-full h-10 pl-3 pr-10 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-primary"
+                    className="w-full h-10 pl-3 pr-10 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:border-blue-600"
                   />
                   <Key className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 h-4 w-4" />
                 </div>
@@ -76,8 +76,8 @@ export const Settings = () => {
 
           {/* Section 2: Backend coordinates */}
           <div className="enterprise-card p-5 space-y-4">
-            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2">
-              <Database size={16} className="text-success" />
+            <h3 className="font-semibold text-sm font-jakarta text-slate-900 flex items-center gap-2">
+              <Database size={16} className="text-green-600" />
               FastAPI Integration Parameters
             </h3>
 
@@ -90,7 +90,7 @@ export const Settings = () => {
                   type="text"
                   value={backendUrl}
                   onChange={(e) => setBackendUrl(e.target.value)}
-                  className="w-full h-10 px-3 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-primary"
+                  className="w-full h-10 px-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:border-blue-600"
                 />
               </div>
 
@@ -102,49 +102,33 @@ export const Settings = () => {
                   type="number"
                   value={chunkSize}
                   onChange={(e) => setChunkSize(e.target.value)}
-                  className="w-full h-10 px-3 bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:border-primary"
+                  className="w-full h-10 px-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 focus:border-blue-600"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: Theme & Status (1 Column) */}
+        {/* Right: Status (1 Column) */}
         <div className="lg:col-span-1 space-y-6">
-          {/* Theme card */}
-          <div className="enterprise-card p-5 space-y-4">
-            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-3">
-              Visual Options
-            </h3>
-            <div className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200">
-                {theme === 'dark' ? <Moon size={15} /> : <Sun size={15} />}
-                {theme === 'dark' ? 'Dark theme' : 'Light theme'}
-              </div>
-              <Button onClick={toggleTheme} size="xs" variant="outline">
-                Switch Mode
-              </Button>
-            </div>
-          </div>
-
           {/* System Check Card */}
           <div className="enterprise-card p-5 space-y-4">
-            <h3 className="font-semibold text-sm font-jakarta text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-              <Shield size={16} className="text-success" />
+            <h3 className="font-semibold text-sm font-jakarta text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+              <Shield size={16} className="text-green-600" />
               Environment Assessment
             </h3>
-            <div className="space-y-2.5 text-xs text-slate-500 dark:text-slate-400">
+            <div className="space-y-2.5 text-xs text-slate-500">
               <div className="flex justify-between">
                 <span>FastAPI connection</span>
-                <span className="font-bold text-warning">Offline (using mock)</span>
+                <span className="font-bold text-amber-500">Offline (Local Demo)</span>
               </div>
               <div className="flex justify-between">
                 <span>Groq client status</span>
-                <span className="font-bold text-success">Connected</span>
+                <span className="font-bold text-amber-550">Not Connected</span>
               </div>
               <div className="flex justify-between">
-                <span>Local indexing corpus</span>
-                <span className="font-bold text-slate-700 dark:text-slate-350">6 documents active</span>
+                <span>Environment Type</span>
+                <span className="font-bold text-slate-600">Frontend Sandbox</span>
               </div>
             </div>
             

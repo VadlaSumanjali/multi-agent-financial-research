@@ -9,7 +9,6 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Workspace from './pages/Workspace';
 import Upload from './pages/Upload';
-import Research from './pages/Research';
 import Comparison from './pages/Comparison';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
@@ -33,7 +32,7 @@ function AppContent() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/workspace" element={<Workspace />} />
         <Route path="/upload" element={<Upload />} />
-        <Route path="/research" element={<Research />} />
+        <Route path="/research" element={<Navigate to="/workspace" replace />} />
         <Route path="/comparison" element={<Comparison />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />
